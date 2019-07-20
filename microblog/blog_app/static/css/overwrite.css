@@ -1,0 +1,60 @@
+.top-item-img img {
+    width:150px !important;
+    height:150px !important;
+    display: block;
+    position: relative;
+    float:left;
+    margin:0 15px 0 0;
+}
+
+.vote {
+    display: block;
+    position: relative;
+    float:right;
+    font-size:26px;
+    line-height:1.5 !important;
+    font-weight:bold;
+    margin:0 0 0 5px;
+}
+
+.entry-title h3{
+    line-height:1.5 !important;
+    margin-bottom:10px !important;
+}
+
+.entry-desc{
+    text-align:justify;
+    font-size:17px;
+}
+
+.entry-short-desc{
+    text-align:justify;
+    font-size:15px;
+}
+
+.owl-dots{display:none !important;}
+
+.portfolio-image img {height:240px !important;}
+
+.owl-theme .owl-controls .owl-nav [class*=owl-] {
+    top:50% !important;
+}
+
+.line{margin:5px 0 20px !important;}
+
+.latest-heading h3{
+    width:100%;
+    text-align:center;
+    margin:0px !important;
+}
+
+ul.tab-nav li a {
+    padding: 0 13.5px !important;
+}
+
+.hide{
+  display:none;
+}
+.show{
+  display:block;
+}

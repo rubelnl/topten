@@ -1,0 +1,49 @@
+{% extends 'blog_app/base.html' %}
+{% load static %}
+
+
+{% block page-title %}
+    <section id="page-title" class="page-title-dark">
+        <div class="container clearfix">
+            <h1>Dashboard</h1>
+        </div>
+    </section>
+{% endblock page-title %}
+
+{% block content %}
+<!-- Contact Form Overlay
+============================================= -->
+<div class="container" style="margin-top:55px; margin-bottom:55px;">
+<table class="table table-bordered">
+<thead>
+      <tr>
+        <th class="center">#</th>
+        <th class="center">Post Title</th>
+        <th class="center">Your Item</th>
+        <th class="center">Published?</th>
+        <th class="center">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for item in item %}
+          <tr>
+            <td class="center">{{forloop.counter}}</td>
+            <td>{{ item.post }}</td>
+            <td>{{ item.item_title }}</td>
+            <td class="center">{{ item.is_approved }}</td>
+            <td class="center">
+                {% if item.is_approved %}
+                    Edit
+                {% else %}
+                    <a href="{% url 'blog_app:update_item' item.id %}">Edit</a>
+                {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div><!-- Contact Form Overlay End -->
+{% endblock content %}
+
+{% block sidebar %}
+{% endblock sidebar %}

@@ -1,0 +1,54 @@
+{% extends 'blog_app/base.html' %}
+{% load static %}
+
+{% block site_title %} {{ title }} - {{ setting.title}}{% endblock site_title %}
+
+{% block page-title %}
+    <section id="page-title" class="page-title-dark">
+        <div class="container clearfix">
+            <h1>Log In</h1>
+        </div>
+    </section>
+{% endblock page-title %}
+
+{% block content %}
+<!-- Contact Form Overlay
+============================================= -->
+<div id="contact-form-overlay" class="clearfix bgcolor-grey" style="margin-top:55px; margin-bottom:55px;">
+
+    <div class="fancy-title title-dotted-border">
+        <h3>Login Here</h3>
+    </div>
+
+    <div id="contact-form-result" data-notify-type="success" data-notify-msg="<i class=icon-ok-sign></i> Message Sent Successfully!"></div>
+
+    <!-- Contact Form
+    ============================================= -->
+    <form class="nobottommargin" id="template-contactform" name="template-contactform" action="{% url 'users_app:login' %}" method="post">
+        {% csrf_token %}
+        <div class="col_half">
+            <label for="username">Username <small>*</small></label>
+            <input type="text" id="username" name="username" class="required sm-form-control" />
+        </div>
+
+        <div class="col_half col_last">
+            <label for="password">Password <small>*</small></label>
+            <input type="password" id="password" name="password" class="sm-form-control required" />
+        </div>
+
+        <div class="col_full">
+            <button class="btn button nomargin" type="submit">Log In</button>
+        </div>
+
+    </form>
+    <div>
+        {% for message in messages %}
+            <h4>{{ message }}</h4>
+        {% endfor %}
+    </div>
+</div><!-- Contact Form Overlay End -->
+{% endblock content %}
+
+
+{% block sidebar %}
+{% endblock sidebar %}

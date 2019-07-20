@@ -1,0 +1,242 @@
+{% extends 'blog_app/base.html' %}
+{% load static %}
+
+{% block site_title %} {{ post.post_title}} - {{ setting.title}}{% endblock site_title %}
+
+{% block page-title %}
+    <section id="page-title" class="page-title-dark">
+        <div class="container clearfix">
+            <h1>Blog</h1>
+            <ol class="breadcrumb">
+                <li><a href="/">Home</a></li>
+                <li><a href="{% url 'blog_app:single' post.slug %}">Blog</a></li>
+            </ol>
+        </div>
+    </section>
+{% endblock page-title %}
+
+
+{% block content %}
+<!-- Post Content
+============================================= -->
+<div class="postcontent nobottommargin clearfix">
+
+    <div class="single-post nobottommargin">
+
+        <!-- Single Post
+        ============================================= -->
+        <div class="entry clearfix">
+
+            <!-- Entry Title
+            ============================================= -->
+            <div class="entry-title">
+                <h2>{{ post.post_title }}</h2>
+            </div><!-- .entry-title end -->
+
+            <!-- Entry Meta
+            ============================================= -->
+            <ul class="entry-meta clearfix">
+                <li><i class="icon-calendar3"></i> {{ post.create_date|date:'Y-m-d' }}</li>
+                <li><a href="#"><i class="icon-user"></i> {{ post.create_by }}</a></li>
+            </ul><!-- .entry-meta end -->
+
+            <!-- Entry Image
+            ============================================= -->
+            <div class="entry-image">
+                <a href="#"><img src="{{ post.post_img.url }}" alt=""></a>
+            </div><!-- .entry-image end -->
+
+            <!-- Entry Content
+            ============================================= -->
+            <div class="entry-content notopmargin">
+
+                <p class="entry-desc">{{ post.long_desc }}</p>
+
+                    <div class="col_full">
+
+                        <div class="fancy-title title-border">
+                            <h4>The Top Five</h4>
+                        </div>
+
+                        <div id="post-list-footer">
+                            {% for item in items %}
+                                {% if item.is_approved %}
+                                    <div class="spost clearfix">
+                                        <div class="top-item-img">
+                                            {% if item.item_img %}
+                                                <img src="{{ item.item_img.url }}" alt="{{ item.item_title }}">
+                                            {% else %}
+                                                <img src="http://placehold.it/150x150" alt="{{ item.item_title }}">
+                                            {% endif %}
+                                        </div>
+
+                                        <div class="entry-c">
+
+                                            <form class="clearfix vote" action="{% url 'blog_app:vote_post' %}" method="post">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="post_id" value="{{ post.id }}">
+                                                <input type="hidden" name="item_id" value="{{ item.id }}">
+                                                {% if is_vote %}
+                                                    {% for key, value in total_vote.items %}
+                                                        {% if key == item.id %}
+                                                            <span style="color:#ccc;">Total Votes : {{value}} </span>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% else %}
+                                                    <span style="color:#999999">Vote</span> <button type="submit" name="submit" class="btn button nomargin">✓</button>
+                                                {% endif %}
+                                            </form>
+
+                                            <div class="entry-title top-item-title">
+                                                <h3>{{forloop.counter}}. {{ item.item_title }}</h3>
+                                            </div>
+                                            <p class="entry-short-desc">{{ item.short_desc }}</p>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+
+                        <script>
+                            function onLinkClick(){
+                              document.getElementById('newitem').className="show";
+                            }
+                        </script>
+                        <div class="btn-link" style="width:100%; font-size:18px; font-weight:bold; margin:20px 0px; padding:10px; text-align:center; background:#eee;" onclick="onLinkClick()">ADD NEW ITEM</div>
+                        <div id="newitem" class="clearfix hide">
+
+                            <form class="clearfix" action="{% url 'blog_app:new_item' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="post_id" value="{{ post.id }}">
+                                <div class="col_full">
+                                    <label for="item_name">Item Name</label>
+                                    <input type="text" name="item_name" id="item_name" value="" size="22" tabindex="1" class="sm-form-control">
+                                </div>
+                                <div class="col_full">
+                                    <label for="short_desc">Short Description</label>
+                                    <textarea name="short_desc" cols="58" id="short_desc" rows="7" tabindex="4" class="sm-form-control"></textarea>
+                                </div>
+                                <div class="col_full nobottommargin">
+                                    <button name="submit" type="submit" id="submit-button" tabindex="5" value="Submit" class="btn button nomargin">Add New</button>
+                                </div>
+                            </form>
+
+                        </div>
+                     </div>
+
+                <!-- Post Single - Content End -->
+
+                <!-- Post Single - Share
+                ============================================= -->
+                <div class="si-share noborder clearfix">
+                    <span>Share this Post:</span>
+                    <div>
+                        <a href="{{ setting.facebook_url }}" class="social-icon si-borderless si-facebook">
+                            <i class="icon-facebook"></i>
+                            <i class="icon-facebook"></i></a>
+                        <a href="{{ setting.twitter_url }}" class="social-icon si-borderless si-twitter">
+                            <i class="icon-twitter"></i>
+                            <i class="icon-twitter"></i></a>
+                        <a href="{{ setting.google_plus_url }}" class="social-icon si-borderless si-gplus">
+                            <i class="icon-gplus"></i>
+                            <i class="icon-gplus"></i></a>
+                        <a href="{{ setting.youtube_url }}" class="social-icon si-borderless si-youtube">
+                            <i class="icon-youtube"></i>
+                            <i class="icon-youtube"></i></a>
+                      </div>
+                </div><!-- Post Single - Share End -->
+            </div>
+        </div><!-- .entry end -->
+
+<!--        <h4>Related Posts:</h4>-->
+
+<!--        <div class="related-posts clearfix">-->
+
+<!--            <div class="col_half nobottommargin">-->
+
+<!--                <div class="mpost clearfix">-->
+<!--                    <div class="entry-image">-->
+<!--                        <a href="#"><img src="http://placehold.it/400x300" alt=""></a>-->
+<!--                    </div>-->
+<!--                    <div class="entry-c">-->
+<!--                        <div class="entry-title">-->
+<!--                            <h4><a href="#">NYC Restaurant Week</a></h4>-->
+<!--                        </div>-->
+<!--                        <ul class="entry-meta clearfix">-->
+<!--                            <li><i class="icon-calendar3"></i> 9th Dec 2015</li>-->
+<!--                            <li><a href="#"><i class="icon-comments"></i> 7</a></li>-->
+<!--                        </ul>-->
+<!--                        <div class="entry-content">Lorem ipsum dolor sit amet consectetur adipiscing elit. In faucibus accumsan rhoncus.</div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div class="mpost clearfix">-->
+<!--                    <div class="entry-image">-->
+<!--                        <a href="#"><img src="http://placehold.it/400x300" alt=""></a>-->
+<!--                    </div>-->
+<!--                    <div class="entry-c">-->
+<!--                        <div class="entry-title">-->
+<!--                            <h4><a href="#">Kids Food Fest</a></h4>-->
+<!--                        </div>-->
+<!--                        <ul class="entry-meta clearfix">-->
+<!--                            <li><i class="icon-calendar3"></i> 14th Nov 2015</li>-->
+<!--                            <li><a href="#"><i class="icon-comments"></i> 11</a></li>-->
+<!--                        </ul>-->
+<!--                        <div class="entry-content">Lorem ipsum dolor sit amet consectetur adipiscing elit. In faucibus accumsan rhoncus.</div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--            </div>-->
+
+<!--            <div class="col_half nobottommargin col_last">-->
+
+<!--                <div class="mpost clearfix">-->
+<!--                    <div class="entry-image">-->
+<!--                        <a href="#"><img src="http://placehold.it/400x300" alt=""></a>-->
+<!--                    </div>-->
+<!--                    <div class="entry-c">-->
+<!--                        <div class="entry-title">-->
+<!--                            <h4><a href="#">Taste of the Old World</a></h4>-->
+<!--                        </div>-->
+<!--                        <ul class="entry-meta clearfix">-->
+<!--                            <li><i class="icon-calendar3"></i> 7th Oct 2015</li>-->
+<!--                            <li><a href="#"><i class="icon-comments"></i> 4</a></li>-->
+<!--                        </ul>-->
+<!--                        <div class="entry-content">Lorem ipsum dolor sit amet consectetur adipiscing elit. In faucibus accumsan rhoncus.</div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div class="mpost clearfix">-->
+<!--                    <div class="entry-image">-->
+<!--                        <a href="#"><img src="http://placehold.it/400x300" alt=""></a>-->
+<!--                    </div>-->
+<!--                    <div class="entry-c">-->
+<!--                        <div class="entry-title">-->
+<!--                            <h4><a href="#">Vegetarian Food Festival</a></h4>-->
+<!--                        </div>-->
+<!--                        <ul class="entry-meta clearfix">-->
+<!--                            <li><i class="icon-calendar3"></i> 20th Sep 2015</li>-->
+<!--                            <li><a href="#"><i class="icon-comments"></i> 5</a></li>-->
+<!--                        </ul>-->
+<!--                        <div class="entry-content">Lorem ipsum dolor sit amet consectetur adipiscing elit. In faucibus accumsan rhoncus.</div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--            </div>-->
+<!--        </div>-->
+    </div>
+</div><!-- .postcontent end -->
+
+{% endblock content %}
+
+
+    <!-- Go To Top
+    ============================================= -->
+    <div id="gotoTop" class="icon-angle-up"></div>
+
+    <!-- Footer Scripts
+    ============================================= -->
+    <script type="text/javascript" src="{% static 'js/functions.js' %}"></script>
+
+</body>
+</html>

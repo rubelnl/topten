@@ -1,0 +1,41 @@
+{% load static %}
+<!-- Header
+============================================= -->
+<header id="header" class="full-header">
+
+    <div id="header-wrap">
+
+        <div class="container clearfix">
+
+            <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+
+            <!-- Logo
+            ============================================= -->
+            <div id="logo">
+                <a href="/" class="standard-logo" data-dark-logo="{% static 'images/logo/logo-dark.png' %}"><img src="{% static 'images/logo/logo.png' %}" alt="Top Ten Logo"></a>
+                <a href="/" class="retina-logo" data-dark-logo="{% static 'images/logo/logo-dark-large.png' %}"><img src="{% static 'images/logo/logo-large.png' %}" alt="Top Ten Logo"></a>
+            </div><!-- #logo end -->
+
+            <!-- Primary Navigation
+            ============================================= -->
+            <nav id="primary-menu">
+                {% with request.resolver_match.url_name as url_name %}
+                <ul>
+                    <li class="{% if url_name == 'index' %}current{% endif %}"><a href="/"><div>Home</div></a></li>
+                    {% if user.is_authenticated %}
+                    <li><a href="#">Hi, {{user.first_name}} {{user.last_name}}</a></li>
+                    <li class="{% if url_name == 'dashboard' %}current{% endif %}"><a href="{% url 'users_app:dashboard' %}"><div>Dashboard</div></a></li>
+                    <li class="{% if url_name == 'registration' %}current{% endif %}"><a href="{% url 'users_app:logout' %}"><div>Log Out</div></a></li>
+                    {% else %}
+                    <li class="{% if url_name == 'login' %}current{% endif %}"><a href="{% url 'users_app:login' %}"><div>Log In</div></a></li>
+                    <li class="{% if url_name == 'registration' %}current{% endif %}"><a href="{% url 'users_app:registration' %}"><div>Join</div></a></li>
+                    {% endif %}
+                </ul>
+                {% endwith %}
+            </nav><!-- #primary-menu end -->
+
+        </div>
+
+    </div>
+
+</header><!-- #header end -->

@@ -1,0 +1,89 @@
+{% load static %}
+<!-- Sidebar
+============================================= -->
+{% block sidebar %}
+
+<div class="sidebar nobottommargin col_last clearfix">
+    <div class="sidebar-widgets-wrap">
+        <div class="widget clearfix">
+
+            <div class="tabs nobottommargin clearfix" id="sidebar-tabs">
+
+                <ul class="tab-nav clearfix">
+                    <li><a href="#tabs-1">Featured</a></li>
+                    <li><a href="#tabs-2">Popular</a></li>
+                    <li><a href="#tabs-3">Recent</a></li>
+                </ul>
+
+                <div class="tab-container">
+
+                    <div class="tab-content clearfix" id="tabs-1">
+                        <div id="popular-post-list-sidebar">
+                            {% for featured in featured_posts %}
+                            <div class="spost clearfix">
+                                <div class="entry-image">
+                                    <a href="#" class="nobg"><img src="{{ featured.post_img.url }}" alt=""></a>
+                                </div>
+                                <div class="entry-c">
+                                    <div class="entry-title">
+                                        <h4><a href="{% url 'blog_app:single' featured.slug %}">{{ featured.post_title|truncatechars:50 }}</a></h4>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="tab-content clearfix" id="tabs-2">
+                        <div id="featured-post-list-sidebar">
+                            {% for popluar in popluar_posts %}
+                            <div class="spost clearfix">
+                                <div class="entry-image">
+                                    <a href="#" class="nobg"><img src="{{ popluar.post_img.url }}" alt=""></a>
+                                </div>
+                                <div class="entry-c">
+                                    <div class="entry-title">
+                                        <h4><a href="{% url 'blog_app:single' popluar.slug %}">{{ popluar.post_title|truncatechars:50 }}</a></h4>
+                                    </div>
+                                    <ul class="entry-meta">
+                                        <li>{{ popluar.create_date|date:'Y-m-d' }}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                    <div class="tab-content clearfix" id="tabs-3">
+                        <div id="recent-post-list-sidebar">
+                            {% for recent in recent_posts %}
+                            <div class="spost clearfix">
+                                <div class="entry-image">
+                                    <a href="#" class="nobg"><img src="{{ recent.post_img.url }}" alt=""></a>
+                                </div>
+                                <div class="entry-c">
+                                    <div class="entry-title">
+                                        <h4><a href="{% url 'blog_app:single' recent.slug %}">{{ recent.post_title|truncatechars:50 }}</a></h4>
+                                    </div>
+                                    <ul class="entry-meta">
+                                        <li>{{ recent.create_date|date:'Y-m-d' }}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <script>
+                $(function() {
+                    $( "#sidebar-tabs" ).tabs({ show: { effect: "fade", duration: 400 } });
+                });
+            </script>
+
+        </div>
+    </div>
+</div><!-- .sidebar end -->
+{% endblock sidebar %}

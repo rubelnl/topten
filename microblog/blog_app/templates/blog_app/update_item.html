@@ -1,0 +1,72 @@
+{% extends 'blog_app/base.html' %}
+{% load static %}
+
+{% block page-title %}
+    <section id="page-title" class="page-title-dark">
+        <div class="container clearfix">
+            <h1>Blog</h1>
+            <ol class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Blog</a></li>
+            </ol>
+        </div>
+    </section>
+{% endblock page-title %}
+
+
+{% block content %}
+<!-- Post Content
+============================================= -->
+        <!-- Single Post
+        ============================================= -->
+        <div class="entry clearfix">
+
+            <!-- Entry Content
+            ============================================= -->
+            <div class="entry-content notopmargin">
+
+                    <div class="col_full">
+
+                        <div id="edit_item" class="clearfix">
+
+                            <form class="clearfix" action="" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="item_id" value="{{ item.id }}">
+                                <div class="col_full">
+                                    <label for="item_name">Item Name</label>
+                                    <input type="text" name="item_name" id="item_name" value="{{ item.item_title }}" size="22" tabindex="1" class="sm-form-control">
+                                </div>
+                                <div class="col_full">
+                                    <label for="short_desc">Short Description</label>
+                                    <textarea name="short_desc" cols="58" id="short_desc" rows="7" tabindex="4" class="sm-form-control">{{ item.short_desc }}</textarea>
+                                </div>
+                                <div class="col_two_third nobottommargin">
+                                    <a href="{% url 'blog_app:delete_item' item.id %}" class="btn button-light nomargin">Delete</a>
+                                </div>
+                                <div class="col_two_fourth nobottommargin" style="text-align:right;">
+                                    <button name="submit" type="submit" id="submit-button" tabindex="5" value="Submit" class="btn button nomargin">Update</button>
+                                </div>
+                            </form>
+
+                        </div>
+                     </div>
+
+                <!-- Post Single - Content End -->
+            </div>
+        </div><!-- .entry end -->
+
+{% endblock content %}
+
+{% block sidebar %}
+{% endblock sidebar %}
+
+    <!-- Go To Top
+    ============================================= -->
+    <div id="gotoTop" class="icon-angle-up"></div>
+
+    <!-- Footer Scripts
+    ============================================= -->
+    <script type="text/javascript" src="{% static 'js/functions.js' %}"></script>
+
+</body>
+</html>

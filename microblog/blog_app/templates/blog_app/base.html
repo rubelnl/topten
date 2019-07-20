@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+{% load static %}
+<html dir="ltr" lang="en-US">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="description" content="{{setting.meta_description}}" />
+    <meta name="keywords" content="{{setting.meta_keyword}}">
+    {% include 'blog_app/head.html' %}
+	<title>{% block site_title %} {{setting.title}} {% endblock site_title %}</title>
+</head>
+
+<body class="stretched">
+
+    <!-- Document Wrapper
+    ============================================= -->
+    <div id="wrapper" class="clearfix">
+
+        {% include 'blog_app/header.html' %}
+
+        <!-- Page Title
+        ============================================= -->
+        {% block page-title %}
+
+        {% endblock page-title %}
+        <!-- #page-title end -->
+
+
+        <!-- Content
+        ============================================= -->
+        <section id="content">
+
+            <div class="content-wrap bgcolor-grey-light">
+
+                <div class="container clearfix">
+
+                        {% block content %}
+
+                        {% endblock content %}
+
+                        {% block sidebar %}
+
+                            <div class="sidebar nobottommargin col_last clearfix">
+                                <div class="sidebar-widgets-wrap">
+                                    <div class="widget clearfix">
+
+                                        <div class="tabs nobottommargin clearfix" id="sidebar-tabs">
+
+                                            <ul class="tab-nav clearfix">
+                                                <li><a href="#tabs-1">Featured</a></li>
+                                                <li><a href="#tabs-2">Popular</a></li>
+<!--                                                <li><a href="#tabs-3">Recent</a></li>-->
+                                            </ul>
+
+                                            <div class="tab-container">
+
+                                                <div class="tab-content clearfix" id="tabs-1">
+                                                    <div id="popular-post-list-sidebar">
+                                                        {% for featured in featured_posts %}
+                                                        <div class="spost clearfix">
+                                                            <div class="entry-image">
+                                                                <a href="#" class="nobg"><img src="{{ featured.post_img.url }}" alt=""></a>
+                                                            </div>
+                                                            <div class="entry-c">
+                                                                <div class="entry-title">
+                                                                    <h4><a href="{% url 'blog_app:single' featured.slug %}">{{ featured.post_title|truncatechars:50 }}</a></h4>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                                <div class="tab-content clearfix" id="tabs-2">
+                                                    <div id="featured-post-list-sidebar">
+                                                        {% for popluar in popluar_posts %}
+                                                        <div class="spost clearfix">
+                                                            <div class="entry-image">
+                                                                <a href="#" class="nobg"><img src="{{ popluar.post_img.url }}" alt=""></a>
+                                                            </div>
+                                                            <div class="entry-c">
+                                                                <div class="entry-title">
+                                                                    <h4><a href="{% url 'blog_app:single' popluar.slug %}">{{ popluar.post_title|truncatechars:50 }}</a></h4>
+                                                                </div>
+                                                                <ul class="entry-meta">
+                                                                    <li>{{ popluar.create_date|date:'Y-m-d' }}</li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        {% endfor %}
+
+                                                    </div>
+                                                </div>
+<!--                                                <div class="tab-content clearfix" id="tabs-3">-->
+<!--                                                    <div id="recent-post-list-sidebar">-->
+<!--                                                        {% for recent in recent_posts %}-->
+<!--                                                        <div class="spost clearfix">-->
+<!--                                                            <div class="entry-image">-->
+<!--                                                                <a href="#" class="nobg"><img src="{{ recent.post_img.url }}" alt=""></a>-->
+<!--                                                            </div>-->
+<!--                                                            <div class="entry-c">-->
+<!--                                                                <div class="entry-title">-->
+<!--                                                                    <h4><a href="{% url 'blog_app:single' recent.slug %}">{{ recent.post_title|truncatechars:50 }}</a></h4>-->
+<!--                                                                </div>-->
+<!--                                                                <ul class="entry-meta">-->
+<!--                                                                    <li>{{ recent.create_date|date:'Y-m-d' }}</li>-->
+<!--                                                                </ul>-->
+<!--                                                            </div>-->
+<!--                                                        </div>-->
+<!--                                                        {% endfor %}-->
+
+<!--                                                    </div>-->
+<!--                                                </div>-->
+                                            </div>
+
+                                        </div>
+
+                                        <script>
+                                            $(function() {
+                                                $( "#sidebar-tabs" ).tabs({ show: { effect: "fade", duration: 400 } });
+                                            });
+                                        </script>
+
+                                    </div>
+                                </div>
+                            </div><!-- .sidebar end -->
+                        {% endblock sidebar %}
+
+                </div>
+
+            </div>
+
+        </section><!-- #content end -->
+
+<!-- Footer
+============================================= -->
+<footer id="footer" class="footer">
+
+    <!-- Copyrights
+    ============================================= -->
+    <div id="copyrights">
+
+        <div class="container clearfix">
+
+            <div class="col_half">
+                <img src="{% static 'images/logo/footer-logo.png' %}" alt="" class="footer-logo standard-logo">
+                <img src="{% static 'images/logo/footer-logo-large.png' %}" alt="" class="footer-logo retina-logo">
+                {{ setting.copyrights }}
+            </div>
+
+            <div class="col_half col_last tright">
+<!--                <div class="copyrights-menu copyright-links fright clearfix">-->
+<!--                    <a href="#">Home</a> <a href="#">About</a> <a href="#">Menu</a> <a href="#">Locations</a> <a href="#">Contact</a>-->
+<!--                </div>-->
+                <br>
+                <div class="fright clearfix">
+                    <a href="{{ setting.facebook_url }}" class="social-icon si-small si-borderless nobottommargin si-facebook">
+                        <i class="icon-facebook"></i>
+                        <i class="icon-facebook"></i>
+                    </a>
+
+                    <a href="{{ setting.twitter_url }}" class="social-icon si-small si-borderless nobottommargin si-twitter">
+                        <i class="icon-twitter"></i>
+                        <i class="icon-twitter"></i>
+                    </a>
+
+                    <a href="{{ setting.google_plus_url }}" class="social-icon si-small si-borderless nobottommargin si-gplus">
+                        <i class="icon-gplus"></i>
+                        <i class="icon-gplus"></i>
+                    </a>
+
+                    <a href="{{ setting.youtube_url }}" class="social-icon si-small si-borderless nobottommargin si-youtube">
+                        <i class="icon-youtube"></i>
+                        <i class="icon-youtube"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </div><!-- #copyrights end -->
+
+</footer><!-- #footer end -->
+
+    </div><!-- #wrapper end -->
+
+    <!-- Go To Top
+    ============================================= -->
+    <div id="gotoTop" class="icon-angle-up"></div>
+
+    <!-- Footer Scripts
+    ============================================= -->
+    <script type="text/javascript" src="{% static 'js/functions.js' %}"></script>
+
+</body>
+</html>
