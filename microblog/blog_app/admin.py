@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Post, Item, SiteSetting
+from blog_app.models import Category, Post, Item
 # Register your models here.
 
 # admin.site.site_header = 'TopTen admin'
@@ -10,19 +10,10 @@ from .models import Category, Post, Item, SiteSetting
 admin.site.register(Category)
 
 
-@admin.register(SiteSetting)
-class SiteSetting(admin.ModelAdmin):
-    MAX_OBJECTS = 1
-
-    def has_add_permission(self, request):
-        if self.model.objects.count() >= self.MAX_OBJECTS:
-            return False
-        return super().has_add_permission(request)
-
-
 class ItemsInline(admin.TabularInline):
     model = Item
     exclude = ('votes', 'comments', 'mac_address')
+    list_display = ('post_title', 'category', 'create_date')
 
 
 @admin.register(Post)

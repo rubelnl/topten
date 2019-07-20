@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from blog_app.models import SiteSetting, Post
+from blog_app.models import Post
+from config_app.models import SiteConfig
 
 
 def sidebar_post(request):
@@ -15,6 +16,10 @@ def sidebar_post(request):
 
 
 def site_setting(request):
-    setting = SiteSetting.objects.all().order_by('-id')[0]
+    try:
+        setting = SiteConfig.objects.all().order_by('-id')[0]
+    except:
+        setting = None
+
     context = {'setting': setting}
     return context

@@ -7,7 +7,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.db.models import Count
 from django.contrib.auth.decorators import login_required
-from blog_app.models import Post, Item, Vote, SiteSetting
+from blog_app.models import Post, Item, Vote
 
 
 # Create your views here.

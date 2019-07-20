@@ -15,6 +15,11 @@ class Category(models.Model):
     create_by = models.ForeignKey(User, editable=False, null=True, blank=True, on_delete=models.SET_NULL)
     update_date = models.DateTimeField(auto_now=True, null=True)
 
+    class Meta:
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
+        
+
     def __str__(self):
         return self.category_name
 
@@ -28,6 +33,10 @@ class Post(models.Model):
     create_date = models.DateTimeField(auto_now_add=True, null=True)
     create_by = models.ForeignKey(User, editable=False, null=True, blank=True, on_delete=models.SET_NULL)
     update_date = models.DateTimeField(auto_now=True, null=True)
+
+    class Meta:
+        verbose_name = 'Post'
+        verbose_name_plural = 'Posts'
 
     def __str__(self):
         return self.post_title
@@ -56,21 +65,3 @@ class Vote(models.Model):
     mac_address = models.TextField(null=True)
     create_date = models.DateTimeField(auto_now_add=True, null=True)
 
-
-class SiteSetting(models.Model):
-    site_logo = models.ImageField(upload_to='images/', null=True, blank=True)
-    title = models.CharField(max_length=100, default="")
-    meta_title = models.CharField(max_length=200, default="")
-    meta_description = models.TextField(default="")
-    meta_keyword = models.TextField(default="")
-    email = models.CharField(max_length=100, default="")
-    facebook_url = models.CharField(max_length=300, default="")
-    twitter_url = models.CharField(max_length=300, default="")
-    google_plus_url = models.CharField(max_length=300, default="")
-    youtube_url = models.CharField(max_length=300, default="")
-    copyrights = models.CharField(max_length=200)
-    create_date = models.DateTimeField(auto_now_add=True, null=True)
-    update_date = models.DateTimeField(auto_now=True, null=True)
-
-    def __str__(self):
-        return self.title
