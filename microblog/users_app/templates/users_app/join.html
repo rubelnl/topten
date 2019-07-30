@@ -3,13 +3,7 @@
 
 {% block site_title %} {{ title }} - {{ setting.title}}{% endblock site_title %}
 
-{% block page-title %}
-    <section id="page-title" class="page-title-dark">
-        <div class="container clearfix">
-            <h1>Join</h1>
-        </div>
-    </section>
-{% endblock page-title %}
+{% block page-title %} {% endblock page-title %}
 
 {% block content %}
 <!-- Contact Form Overlay
@@ -24,7 +18,7 @@
 
     <!-- Contact Form
     ============================================= -->
-    <form class="nobottommargin" id="template-contactform" name="template-contactform" action="{% url 'users_app:registration' %}" method="post">
+    <form class="nobottommargin" id="template-contactform" name="template-contactform" action="{% url 'registration' %}" method="post">
         {% csrf_token %}
         <div class="col_half">
             <label for="firstname">First Name <small>*</small></label>

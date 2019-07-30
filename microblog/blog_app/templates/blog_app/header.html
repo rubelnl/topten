@@ -25,10 +25,10 @@
                     {% if user.is_authenticated %}
                     <li><a href="#">Hi, {{user.first_name}} {{user.last_name}}</a></li>
                     <li class="{% if url_name == 'dashboard' %}current{% endif %}"><a href="{% url 'users_app:dashboard' %}"><div>Dashboard</div></a></li>
-                    <li class="{% if url_name == 'registration' %}current{% endif %}"><a href="{% url 'users_app:logout' %}"><div>Log Out</div></a></li>
+                    <li class="{% if url_name == 'registration' %}current{% endif %}"><a href="{% url 'logout' %}"><div>Log Out</div></a></li>
                     {% else %}
-                    <li class="{% if url_name == 'login' %}current{% endif %}"><a href="{% url 'users_app:login' %}"><div>Log In</div></a></li>
-                    <li class="{% if url_name == 'registration' %}current{% endif %}"><a href="{% url 'users_app:registration' %}"><div>Join</div></a></li>
+                    <li class="{% if url_name == 'login' %}current{% endif %}"><a href="{% url 'login' %}"><div>Log In</div></a></li>
+                    <li class="{% if url_name == 'registration' %}current{% endif %}"><a href="{% url 'registration' %}"><div>Join</div></a></li>
                     {% endif %}
                 </ul>
                 {% endwith %}

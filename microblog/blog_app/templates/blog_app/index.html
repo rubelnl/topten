@@ -19,20 +19,6 @@
         </div>
         {% endfor %}
 
-        {% for post in posts %}
-        <div class="oc-item">
-            <div class="iportfolio">
-                <div class="portfolio-image">
-                    <img src="{{ post.post_img.url }}" alt="">
-                    <div class="portfolio-overlay"></div>
-                </div>
-                <div class="portfolio-desc">
-                    <h3><a href="{% url 'blog_app:single' post.slug %}">{{ post.post_title }}</a></h3>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-
     </div><!-- .portfolio-carousel end -->
 
     <script type="text/javascript">

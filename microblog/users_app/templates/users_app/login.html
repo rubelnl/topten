@@ -3,13 +3,7 @@
 
 {% block site_title %} {{ title }} - {{ setting.title}}{% endblock site_title %}
 
-{% block page-title %}
-    <section id="page-title" class="page-title-dark">
-        <div class="container clearfix">
-            <h1>Log In</h1>
-        </div>
-    </section>
-{% endblock page-title %}
+{% block page-title %} {% endblock page-title %}
 
 {% block content %}
 <!-- Contact Form Overlay
@@ -24,7 +18,7 @@
 
     <!-- Contact Form
     ============================================= -->
-    <form class="nobottommargin" id="template-contactform" name="template-contactform" action="{% url 'users_app:login' %}" method="post">
+    <form class="nobottommargin" id="template-contactform" name="template-contactform" action="{% url 'login' %}" method="post">
         {% csrf_token %}
         <div class="col_half">
             <label for="username">Username <small>*</small></label>
@@ -36,9 +30,11 @@
             <input type="password" id="password" name="password" class="sm-form-control required" />
         </div>
 
-        <div class="col_full">
+        <div class="col_half">
             <button class="btn button nomargin" type="submit">Log In</button>
         </div>
+
+        <div class="col_half col_last" style="text-align: right"><a href="{% url 'password_reset' %}">Forgot Password?</a></div>        
 
     </form>
     <div>

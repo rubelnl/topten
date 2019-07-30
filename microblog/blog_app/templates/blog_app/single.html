@@ -50,7 +50,7 @@
             ============================================= -->
             <div class="entry-content notopmargin">
 
-                <p class="entry-desc">{{ post.long_desc }}</p>
+                <p class="entry-desc">{{ post.long_desc|safe }}</p>
 
                     <div class="col_full">
 
@@ -90,7 +90,7 @@
                                             <div class="entry-title top-item-title">
                                                 <h3>{{forloop.counter}}. {{ item.item_title }}</h3>
                                             </div>
-                                            <p class="entry-short-desc">{{ item.short_desc }}</p>
+                                            <p class="entry-short-desc">{{ item.short_desc|safe }}</p>
                                         </div>
                                     </div>
                                 {% endif %}

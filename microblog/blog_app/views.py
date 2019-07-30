@@ -101,7 +101,7 @@ def add_new_item(request):
     return redirect('blog_app:single', post.slug)
 
 
-class CreateUpdateItem(View):
+class UpdateItem(View):
     template = 'blog_app/update_item.html'
     title = 'Update Item | Chocolat'
 

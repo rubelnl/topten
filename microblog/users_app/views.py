@@ -30,7 +30,7 @@ class RegistrationView(View):
                 return redirect('users_app:registration')
             elif User.objects.filter(email=email).exists():
                 messages.info(request, 'Email Already Taken')
-                return redirect('users_app:registration')
+                return redirect('registration')
             else:
                 user = User.objects.create_user(
                     username=username,
@@ -38,13 +38,14 @@ class RegistrationView(View):
                     last_name=last_name,
                     email=email,
                     password=password
+                    #is_active=False
                 )
                 user.save()
                 messages.info(request, 'User Created!')
         else:
             messages.info(request, 'Password Not Matching')
 
-        return redirect('users_app:registration')
+        return redirect('registration')
 
 
 class LoginView(RegistrationView):
@@ -67,7 +68,7 @@ class LoginView(RegistrationView):
 
         else:
             messages.info(request, 'Invalid Credential! Please try again...')
-            return redirect('users_app:login')
+            return redirect('login')
 
 
 @login_required

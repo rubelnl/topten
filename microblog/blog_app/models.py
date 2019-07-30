@@ -3,6 +3,7 @@ from django.contrib.sessions.models import Session
 from autoslug import AutoSlugField
 from django.db import models
 from django.urls import reverse
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 
@@ -27,7 +28,8 @@ class Category(models.Model):
 class Post(models.Model):
     post_title = models.CharField(max_length=250)
     slug = AutoSlugField(populate_from='post_title', always_update=True, unique_with=['create_date__month'])
-    long_desc = models.TextField(verbose_name="Long Description")
+    #long_desc = models.TextField(verbose_name="Long Description")
+    long_desc = RichTextField(verbose_name="Long Description")
     post_img = models.ImageField(upload_to='images/', null=True)
     category = models.ManyToManyField("Category")
     create_date = models.DateTimeField(auto_now_add=True, null=True)
@@ -45,7 +47,7 @@ class Post(models.Model):
 class Item(models.Model):
     post = models.ForeignKey("Post", on_delete=models.CASCADE, blank=True, null=True)
     item_title = models.CharField(max_length=250, verbose_name="Item Name")
-    short_desc = models.TextField(verbose_name="Short Description")
+    short_desc = RichTextField(verbose_name="Short Description")
     item_img = models.ImageField(upload_to='images/', null=True, blank=True)
     comments = models.ManyToManyField(User, related_name='comments', blank=True)
     mac_address = models.TextField(null=True)
